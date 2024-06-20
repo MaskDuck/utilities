@@ -25,4 +25,7 @@ intents.typing = False
 intents.voice_states = False
 bot = NonsenseBot(intents=intents)
 
+bot.load_extension("extensions.docs")
+bot.load_extension("extensions.fun")
+
 bot.run(os.environ["TOKEN"])
