@@ -19,7 +19,7 @@ class Fun(commands.Cog):
         y = ""
         for x in quote:
             y += f":regional_indicator_{x}: "
-        await interaction.send(y)
+        await interaction.send(nextcord.utils.escape_markdown(y))
 
 
 def setup(bot: commands.Bot):
