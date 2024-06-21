@@ -54,7 +54,7 @@ class Docs(commands.Cog):
         results = self.index.search(search_term)
         description = ""
         hits = []
-        for hit in results["hit"]:
+        for hit in results["hits"]:
             title = self.get_level_str(hit["hierachy"])
             if title in hits:
                 continue
