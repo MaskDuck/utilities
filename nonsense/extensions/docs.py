@@ -23,12 +23,13 @@ DEALINGS IN THE SOFTWARE.
 """
 
 # taken from https://github.com/nextcord/previous/blob/master/cogs/discorddoc.py
+from typing import Any
 import nextcord
 from algoliasearch.search_client import SearchClient
 from nextcord.ext import commands
 
 
-class DiscordHelp(commands.Cog):
+class Docs(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         ## Fill out from trying a search on the ddevs portal
@@ -36,6 +37,37 @@ class DiscordHelp(commands.Cog):
         api_key = "f37d91bd900bbb124c8210cca9efcc01"
         self.search_client = SearchClient.create(app_id, api_key)
         self.index = self.search_client.init_index("discord")
+        neovim_app_id = "X185E15FPG"
+        neovim_api_key = "b5e6b2f9c636b2b471303205e59832ed"
+        self.neovim_search_client = SearchClient.create(neovim_app_id, neovim_api_key)
+        self.neovim_index = self.neovim_search_client.init_index("nvim")
+
+    @nextcord.slash_command()
+    async def nvim_doc(
+        self,
+        interaction: nextcord.Interaction,
+        *,
+        search_term: str = nextcord.SlashOption(
+            description="The query to search with", required=True
+        ),
+    ) -> Any:
+        results = self.index.search(search_term)
+        description = ""
+        hits = []
+        for hit in results["hit"]:
+            title = self.get_level_str(hit["hierachy"])
+            if title in hits:
+                continue
+            hits.append(title)
+            description += f"[{title}]({hit['url']})"
+            if len(hits) > 10:
+                break
+        embed = nextcord.Embed(
+            title="Your Neovim docs have arrived!",
+            description=description,
+            color=nextcord.Color.green(),
+        )
+        await interaction.send(embed=embed)
 
     @nextcord.slash_command()
     async def ddoc(self, interaction: nextcord.Interaction, *, search_term: str):
@@ -57,7 +89,7 @@ class DiscordHelp(commands.Cog):
         embed = nextcord.Embed(
             title="Your help has arrived!",
             description=description,
-            color=nextcord.Color.random(),
+            color=nextcord.Color.blurple(),
         )
         await interaction.send(embed=embed)
 
@@ -70,4 +102,4 @@ class DiscordHelp(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(DiscordHelp(bot))
+    bot.add_cog(Docs(bot))
