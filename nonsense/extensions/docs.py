@@ -51,6 +51,7 @@ class Docs(commands.Cog):
             description="The query to search with", required=True
         ),
     ) -> Any:
+        """Need help with Neovim? We've got you covered!"""
         results = self.neovim_index.search(search_term)
         description = ""
         hits = []
@@ -76,9 +77,12 @@ class Docs(commands.Cog):
         description = ""
         hits = []
         for hit in results["hits"]:
-            title = self.get_level_str(hit["hierarchy"])
-            if title in hits:
-                continue
+            if hit.get("hierachy") == None:
+                title = "???"
+            else:
+                title = self.get_level_str(hit["hierarchy"])
+                if title in hits:
+                    continue
             hits.append(title)
             url = hit["url"].replace(
                 "https://discord.com/developers/docs", "https://discord.dev"
