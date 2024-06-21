@@ -64,7 +64,7 @@ class Docs(commands.Cog):
                 if title in hits and title != "???":
                     continue
             hits.append(title)
-            description += f"[{title}]({hit['url']})"
+            description += f"[{title}]({hit['url']})\n"
             if len(hits) > 10:
                 break
         embed = nextcord.Embed(
