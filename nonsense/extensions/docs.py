@@ -63,8 +63,6 @@ class Docs(commands.Cog):
                 title = self.get_level_str(hit.get("hierachy"))
                 if title in hits and title != "???":
                     continue
-            if title in hits:
-                continue
             hits.append(title)
             description += f"[{title}]({hit['url']})"
             if len(hits) > 10:
