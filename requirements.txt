@@ -2,4 +2,5 @@ nextcord
 algoliasearch
 orjson
 aiodns
-
+python-dotenv
+nextcord-ext-menus
