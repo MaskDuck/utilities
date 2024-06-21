@@ -27,5 +27,6 @@ bot = NonsenseBot(intents=intents)
 
 bot.load_extension("extensions.docs")
 bot.load_extension("extensions.fun")
+bot.load_extension("extensions.wikis")
 
 bot.run(os.environ["TOKEN"])
