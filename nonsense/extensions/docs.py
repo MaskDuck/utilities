@@ -57,10 +57,11 @@ class Docs(commands.Cog):
         hits = []
         for hit in results["hits"]:
 
-            if hit.get("hierachy") == None:
+            if hit.get("hierarchy") == None:
+
                 title = "???"
             else:
-                title = self.get_level_str(hit.get("hierachy"))
+                title = self.get_level_str(hit.get("hierarchy"))
                 if title in hits and title != "???":
                     continue
             hits.append(title)
