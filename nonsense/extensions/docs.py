@@ -51,7 +51,7 @@ class Docs(commands.Cog):
             description="The query to search with", required=True
         ),
     ) -> Any:
-        results = self.index.search(search_term)
+        results = self.neovim_index.search(search_term)
         description = ""
         hits = []
         for hit in results["hits"]:
