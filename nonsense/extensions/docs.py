@@ -80,8 +80,8 @@ class Docs(commands.Cog):
             if hit.get("hierachy") == None:
                 title = "???"
             else:
-                title = self.get_level_str(hit["hierarchy"])
-                if title in hits:
+                title = self.get_level_str(hit.get("hierachy"))
+                if title in hits and title != "???":
                     continue
             hits.append(title)
             url = hit["url"].replace(
@@ -98,6 +98,8 @@ class Docs(commands.Cog):
         await interaction.send(embed=embed)
 
     def get_level_str(self, levels):
+        if levels is None:
+            return "???"
         last = ""
         for level in levels.values():
             if level is not None:
