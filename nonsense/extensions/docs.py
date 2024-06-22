@@ -76,7 +76,7 @@ class Docs(commands.Cog):
         description = ""
         hits = []
         for hit in results["hits"]:
-            title = self.get_level_str(hit.get("hierachy"))
+            title = self.get_level_str(hit.get("hierarchy"))
             hits.append(title)
             url = hit["url"].replace(
                 "https://discord.com/developers/docs", "https://discord.dev"
