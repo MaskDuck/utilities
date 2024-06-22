@@ -58,6 +58,7 @@ class Docs(commands.Cog):
         for hit in results["hits"]:
 
             title = self.get_level_str(hit.get("hierarchy"))
+            title = title.replace("=", "")
             hits.append(title)
             description += f"[{title}]({hit['url']})\n"
             if len(hits) > 10:
