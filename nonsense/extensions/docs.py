@@ -57,13 +57,7 @@ class Docs(commands.Cog):
         hits = []
         for hit in results["hits"]:
 
-            if hit.get("hierarchy") == None:
-
-                title = "???"
-            else:
-                title = self.get_level_str(hit.get("hierarchy"))
-                if title in hits and title != "???":
-                    continue
+            title = self.get_level_str(hit.get("hierarchy"))
             hits.append(title)
             description += f"[{title}]({hit['url']})\n"
             if len(hits) > 10:
